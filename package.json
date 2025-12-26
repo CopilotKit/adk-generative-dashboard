@@ -9,7 +9,7 @@
     "dev:ui": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint && tsc --noEmit",
     "install:agent": "./scripts/setup-agent.sh || scripts\\setup-agent.bat",
     "postinstall": "npm run install:agent"
   },

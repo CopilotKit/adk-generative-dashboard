@@ -12,7 +12,8 @@ export function MainLayout({ className }: { className?: string }) {
     agentId: "my_agent",
   });
   const state = agent.state;
-  const setState = agent.setState;
+  // useAgent doesn't support destructuring the setState function
+  const setState = (newState: typeof state) => agent.setState(newState);
   // Setup tool rendering and front-end tools
   useChartActions({ state, setState });
   useSearchActions();
