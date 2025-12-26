@@ -1,18 +1,18 @@
-import { useCoAgent } from "@copilotkit/react-core";
-import { AgentState } from "@/lib/types";
-import { cn } from "@/lib/utils";
-import { PinnedMetrics } from "@/components/dashboard/layout/metrics";
-import { Charts } from "@/components/dashboard/layout/charts";
-import { 
+import {
   useChartActions,
   useSearchActions
 } from "@/components/chat/actions";
+import { Charts } from "@/components/dashboard/layout/charts";
+import { PinnedMetrics } from "@/components/dashboard/layout/metrics";
+import { cn } from "@/lib/utils";
+import { useAgent } from "@copilotkit/react-core/v2";
 
 export function MainLayout({ className }: { className?: string }) {
-  const { state, setState } = useCoAgent<AgentState>({
-    name: "my_agent",
-  })
-
+  const {agent} = useAgent({
+    agentId: "my_agent",
+  });
+  const state = agent.state;
+  const setState = agent.setState;
   // Setup tool rendering and front-end tools
   useChartActions({ state, setState });
   useSearchActions();
