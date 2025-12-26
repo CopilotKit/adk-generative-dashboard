@@ -1,4 +1,4 @@
-import { useCopilotAction } from "@copilotkit/react-core";
+import { useHumanInTheLoop } from "@copilotkit/react-core";
 import type { AgentState, ChartSpec, LineChartSpec, BarChartSpec, PieChartSpec, Chart, ChartDataRecord, AgentSetState } from "@/lib/types";
 import { ChartCard } from "@/components/dashboard/charts";
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,7 @@ interface UseChartActionsProps {
 
 export const useChartActions = ({ state, setState }: UseChartActionsProps) => {
   // Add Chart Action
-  useCopilotAction({
+  useHumanInTheLoop({
     name: "add_chart",
     description: "Add a chart to the dashboard by type. You *must* populate the data, do not create empty charts.",
     parameters: [
@@ -20,7 +20,7 @@ export const useChartActions = ({ state, setState }: UseChartActionsProps) => {
       { name: "y", type: "string", required: false },
       { name: "data", type: "object[]", required: false },
     ],
-    renderAndWaitForResponse: ({ args, respond, status }) => {
+    render: ({ args, respond, status }) => {
       const { type, title, x, y, data } = args as {
         type: string;
         title: string;
@@ -70,7 +70,7 @@ export const useChartActions = ({ state, setState }: UseChartActionsProps) => {
   }, [state]);
 
   // Update Chart Action
-  useCopilotAction({
+  useHumanInTheLoop({
     name: "update_chart",
     description: "Update an existing chart on the dashboard. Provide the current title to identify which chart to update.",
     parameters: [
@@ -81,7 +81,7 @@ export const useChartActions = ({ state, setState }: UseChartActionsProps) => {
       { name: "y", type: "string", required: false },
       { name: "data", type: "object[]", required: false },
     ],
-    renderAndWaitForResponse: ({ args, respond, status }) => {
+    render: ({ args, respond, status }) => {
       const { currentTitle, type, title, x, y, data } = args as {
         currentTitle: string;
         type?: string;
@@ -171,13 +171,13 @@ export const useChartActions = ({ state, setState }: UseChartActionsProps) => {
   }, [state]);
 
   // Delete Chart Action
-  useCopilotAction({
+  useHumanInTheLoop({
     name: "delete_chart",
     description: "Delete a chart from the dashboard. Provide the title of the chart to delete.",
     parameters: [
       { name: "title", type: "string", required: true },
     ],
-    renderAndWaitForResponse: ({ args, respond, status }) => {
+    render: ({ args, respond, status }) => {
       const { title } = args as { title: string };
 
       const currentCharts = state?.charts || [];
