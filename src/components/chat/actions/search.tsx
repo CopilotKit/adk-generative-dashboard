@@ -1,9 +1,9 @@
-import { useCopilotAction } from "@copilotkit/react-core";
+import { useRenderToolCall } from "@copilotkit/react-core";
 import { Card, CardContent } from "@/components/ui/card";
 import { Loader2, Check } from "lucide-react";
 
 export const useSearchActions = () => {
-  useCopilotAction({
+  useRenderToolCall({
     name: "SearchAgent",
     available: "disabled",
     description: "Search the internet for the query.",
